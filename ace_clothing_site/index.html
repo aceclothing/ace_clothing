@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ace Clothing Brand</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product {
+            background: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #444;
+        }
+        #cart {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: white;
+            padding: 20px;
+            border-left: 2px solid black;
+            height: 100%;
+            width: 300px;
+            overflow-y: auto;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+        }
+        #cart h2 {
+            margin-top: 0;
+        }
+        .payment-methods img {
+            width: 50px;
+            margin: 5px;
+        }
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Ace Clothing Brand</h1>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">Contact</a>
+</nav>
+
+<div class="products">
+    <div class="product">
+        <h3>Example Product</h3>
+        <p>$20</p>
+        <button onclick="addToCart('Example Product', 20)">Add to Cart</button>
+    </div>
+</div>
+
+<div id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cartItems"></ul>
+    <h3>Total: $<span id="totalPrice">0</span></h3>
+    <div class="payment-methods">
+        <p>Payment Methods:</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
+    </div>
+    <p>Contact: 0757718220</p>
+</div>
+
+<footer>
+    <p>&copy; 2025 Ace Clothing Brand</p>
+</footer>
+
+<script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(product, price) {
+        cart.push({ product, price });
+        total += price;
+        updateCart();
+    }
+
+    function removeFromCart(index) {
+        total -= cart[index].price;
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById('cartItems');
+        cartItems.innerHTML = '';
+        cart.forEach((item, index) => {
+            cartItems.innerHTML += `<li>${item.product} - $${item.price} <button onclick="removeFromCart(${index})">Remove</button></li>`;
+        });
+        document.getElementById('totalPrice').innerText = total;
+    }
+</script>
+
+</body>
+</html>
